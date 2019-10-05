@@ -1,0 +1,96 @@
+term monitor - ssh 
+
+switchto vdc [vdc_name]
+
+show module
+
+show e1/33 capabilities
+
+show int e1/1 status
+!
+[admin context]
+show vdc membership
+!
+#create vdc N7k1
+
+allocate interface e1/7
+##show vdc (lc - m1,m1xl, m2xl, f2e)
+show run vdc(limit-resource module-type)
+
+limit-resouce module-type f3
+!
+!
+show cli history unformatted | last 10
+!
+switchto vdc N7k1
+show interface status
+
+****Limiting VDC Resources***
+ADMIN# sh run vdc
+show vdc details
+ 
+OOB
+show run vdc-all | include "ip address"|mgmt
+
+roles:
+network admin
+network operator (readonly)
+vdc admin
+vdc operator (readonly)
+
+!
+switchto vdc N7k1
+int mgmt 0
+ip address 192.168.1.71/24
+
+ping 192.1.68.1 1  vrf mgmt
+
+***verification and troubleshooting tools****
+
+sh run | in feature
+
+show logging logfile
+show logging logfile | last 10
+
+show line #(baud rate)
+
+conf t
+logging monitor ?
+terminal monitor
+
+***Packet capture***
+SPAN
+ERPSAN
+
+SPAN
+#monitor session 1 type local \n
+source int e1/5 both \n
+destination int e1/1 \n
+no shut
+show monitor session 1 
+
+int e1/1
+switchport monitor
+
+
+feature interface-vlan
+int vlan1 
+ip add 1.0.0.5/24
+
+show run all | in system (system defaults)
+int e1/3
+swithport 
+switch mode truck
+
+int# shut ; no shut (same line command)
+
+ERSPAN (enable routing)
+#feature ospf
+router ospf 1 
+!
+int vlan 1
+ip router ospf 1 area 0
+int lo 0 
+ip add 7.7.7.7/32 
+ip router ospf 1 area 0 
+
