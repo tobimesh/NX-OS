@@ -1,0 +1,94 @@
+system default is no switchport L3 (routed)
+#system default switchport  ( L2 change system default)
+#no system default switchport shutdown
+show int e1/1  status
+!
+
+rapid PVST by default
+STP Bridge Assurance - sends BPDUs regardless of STP port state
+!
+spanning-tree port type network default
+!
+int e1/1 - 2
+switchport
+switchport mode truck
+spanning-tree port type network
+no shut
+!
+show spanning-tree int e1/1
+!
+
+port-profile type ethternet  TRUNK_TO_ESXI_HOSTS
+switchport
+switchport mode trunk
+switchport truck allowed vlan 10,20
+spanning-tree port type edge trunk
+state enabled
+no shut
+
+
+
+int e1/1
+inherit port-profile TRUNK_TO_ESXI_HOSTS
+!
+show run int e1/1 expand-port-profile
+
+**************************************************************
+
+CE on NX-OS:
+CE workflow
+- Create vlan
+- Create Trunks
+- Optionally create port-channel
+- Optionally modify STP modes & features
+  
+  5K1:
+  
+  vlan 10
+  
+  int e1/1
+  switchport host   (spanning-tree port type edge)
+  switchport access vlan 10
+ 
+ ******
+ push
+ where
+ pop
+ *********
+ 
+ N7K1
+ 
+ 
+ default int e1/1 - 4 
+ 
+ conf t ; int e1/1 - 4 ; switchport ; switchport mode truck ; no shut ; end
+ 
+ !
+ show spanning-tree vlan 10 root
+ 
+ Verification:
+   show interface status
+   show interface brief
+   show vlan [brief]
+   show port-channel summary
+   show spanning-tree 
+   show mac address-table
+ 
+ *************************
+ Port-C hannels
+ **************************
+ 
+ #feature lacp
+ spanning-treee vlan 10 root primary 
+ 
+ 
+ #int e1/3 - 4
+ channel-group 1 mode active
+ !
+ show port-channel summary
+ show port-channel load-balance
+ show port-channel traffic 
+ show lacp interface
+ show lacp neighbor
+ show spanning-tree 
+ show port-channel usage
