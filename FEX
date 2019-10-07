@@ -1,0 +1,52 @@
+feature fex  N5K/N6K
+install feature-set fex & feature-set fex N7K
+!
+downlinks
+
+switchport mode fex
+fex association [num]
+N7K requires Port-Channel to FEX
+
+show fex [detail]
+show run fex
+show lldp neighbor
+show vpc role 
+!
+N5K1
+int e1/21 - 24
+switchport mode fex-fabric
+fex associate 101
+channel-group 101
+vpc 101
+
+N5K1
+int e1/23 - 24
+switchport mode fex-fabric
+fex association 102
+channel-group 102
+vpc 102
+
+
+
+#int e101/1/1 
+channel-group 11 mode active
+
+e102/1/1 
+channel-group 11 mode active
+
+#int po11
+switchport
+switchport mode access
+switchport access vlan 11
+end
+
+
+***which | in dcbx*** DC bridging exchange 
+
+
+Pre-provision flex
+
+#slot 101
+#provision model n2k_c2232p
+#slot 102
+#provision model n2k_c2232p
