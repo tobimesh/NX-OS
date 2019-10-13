@@ -13,7 +13,7 @@ show lldp neighbor
 show vpc role 
 !
 N5K1
-int e1/21 - 24
+int e1/21 - 22
 switchport mode fex-fabric
 fex associate 101
 channel-group 101
