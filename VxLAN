@@ -1,0 +1,39 @@
+Store and forward switching
+
+Set switching mode
+  hardware ethernet store-and-forward-switching
+  reboot
+
+IP unicast reachability beteen VTEPs
+PIM BIDR reachability between VTEPs
+
+Enable feeatures
+!
+ Features nv overlay
+ feature nv-segment-vlan-based
+ 
+ 
+ Mapping between VLAN and VxLAV
+ !
+ int  vlan 10
+ vn-segment  11110
+ 
+ Create tunnel interface
+ !
+ int nve1
+ source-interface loopback 0
+ member vni 11110
+ mcast-group  228.9.10.11
+ no shut
+ 
+ Verification
+  show interface nve id
+  show platform fwm info nve peer [all]
+  show mac address table 
+  show nve peer
+  show nve nvi
+  show platform fwm info nve nvi
+   
+   
+   **mtu 9216
+  
