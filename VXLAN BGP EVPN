@@ -1,0 +1,50 @@
+Prereq:
+ Enable features
+   Install feature-set virtualization
+   Install feature-set fabri
+   feature-set fabric
+   feature fabric forwarding 
+   nv overlay evvpn
+   feature nv overlay
+   feature vn-segment-vlan-based
+ 
+ 
+ 
+ int  vlan 10
+ vn-segment  11110
+ 
+ Create tunnel interface
+ !
+ int nve1
+ source-interface loopback 0
+ member vni 11110
+ mcast-group  228.9.10.11
+ host-reachability protocol bgp
+ 
+ Establish bgp 
+  address-family l2vpn evpn
+  extended communities required
+  
+!
+featjure bgp 
+
+router bgp 1
+log-neighbor-changes
+nei 10.10.10.8
+remote-as 1
+update-source loopback 0
+ address family l2vpn evpn
+ send community extended 
+ !
+ 
+ 
+ **show bgp l2vpn evpn summary**
+ 
+ Leaf:
+ 
+(BGP advertisement)
+ !
+  evpn
+  vni 11110 l2
+  rd auto
+  route-target both auto
